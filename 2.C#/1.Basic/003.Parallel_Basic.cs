@@ -20,7 +20,7 @@ namespace CPPPP
                 string input = ReadLine();      // 문자열 입력
 
                 if(input.Equals("x", StringComparison.OrdinalIgnoreCase))   // x가 입력되면 프로그램 종료
-                {
+                {                                                           // 스레드가 foreground여도 break로 종료되면 서브 스레드들도 강제로 종료
                     WriteLine("프로그램 종료");
                     break;
                 }
@@ -33,8 +33,14 @@ namespace CPPPP
                                                                                 // while문 안에 스레드 생성이 있다고 계속 생성하는 것이 아니다.
                                                                                 // 여전히 동기방식이지만 스레드를 생성해서 전담하는 방식으로 동기방식의 문제를 해결했다.
                                                                                 // A 스레드, B 스레드 나름대로 동시에 일을 시키는 것이기 때문에 병렬(Parallel)처리를 한 것이다.
+                t.IsBackground = true;
                 t.Start();
             }
+
+            //t.Join();   // 여기서는 Join을 하지 않았다.
+                          // 1. t는 while문 안에서 생성했기 때문에 while문 밖에서 t에 접근을 할 수 없다.
+                          // 2. t는 백그라운드로 실행이 되기 때문에 Join을 하지 않아도 메인 스레드가 종료되면 자동으로 종료된다.
+                          // 조인을 사용하도록 설계한다면 while문 밖에서 스레드를 생성해야 한다.
         }
 
         static int Fib(int n)       // 피보나치 수열, 입력값이 커지면 기하급수적으로 성능이 하락한다.
