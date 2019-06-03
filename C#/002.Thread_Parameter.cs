@@ -84,6 +84,9 @@ namespace CPPPP
             t9.IsBackground = true;
             t9.Start();
 
+            new Thread(() => Calc()).Start();   // 익명으로 스레드를 생성하여 실행할 수 있다.
+                                                // 다만 익명이기 때문에 스레드를 따로 설정할 수 없고, 생성하자마자 실행되기 때문에 무조건 background로 실행된다.
+
             t1.Join();
             t2.Join();
             t3.Join();
