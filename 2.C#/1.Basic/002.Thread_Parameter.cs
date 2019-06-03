@@ -36,11 +36,11 @@ namespace CPPPP
     {
         public static void Main()
         {
-            Thread t1 = new Thread(Calc);   // 매개변수가 없는 메서드는 스레드를 생성할 때 매겨변수로 메서드 이름을 전달하면 된다.
+            Thread t1 = new Thread(Calc);   // 매개변수가 없는 메서드는 스레드를 생성할 때 생성자에 메서드 이름을 전달하면 된다.
             t1.IsBackground = true;
             t1.Start();                     // 스레드 시작
 
-            Thread t2 = new Thread(new ThreadStart(Calc));  // Thread 매개변수로 델리게이트인 ThreadStart를 생성하여 전달해준다.
+            Thread t2 = new Thread(new ThreadStart(Calc));  // Thread 생성자로 델리게이트인 ThreadStart를 생성하여 전달해주게끔 정의가 되어있다.
                                                             // t1처럼 ThreadStart를 생략해도 자동으로 처리해준다.
             t2.IsBackground = true;
             t2.Start();                                     // 스레드 시작
@@ -55,19 +55,19 @@ namespace CPPPP
                                                     
 
             Thread t4 = new Thread(new ParameterizedThreadStart(Sub));  // 매개변수가 있는 메서드를 전달할 델리게이트는 ParameterizedThreadStart로 정의되어 있다.
-                                                                        // 다만 object형 1개만 정의되어있다.
+                                                                        // 다만 매개변수가 object형 1개로만 정의되어있다.
             t4.IsBackground = true;
-            t4.Start(new StructThreadParam(3, 4));                      // 매개변수를 2개 이상 사용하고 싶으면 클래스 뿐만 아니라 구조체로도 전달할 수 있다.
+            t4.Start(new StructThreadParam(3, 4));                      // 매개변수를 2개 이상 사용하고 싶으면 구조체로도 전달할 수 있다.
 
-            Thread t5 = new Thread(() => Calc());           // 사실 모든 상황을 생각하지 않고 람다로 구현하면 모든 것을 구현할 수 있다.
+            Thread t5 = new Thread(() => Calc());           // 사실 람다로 구현하면 매개변수를 생각하지 않고 모든 메서드를 전달할 수 있다.
             t5.IsBackground = true;
             t5.Start();
 
-            Thread t6 = new Thread(() => CircleArea(3));    // 매개변수가 int형 1개만 있는 메서드도 값을 넣어서 사용할 수 있다.
+            Thread t6 = new Thread(() => CircleArea(3));    // 매개변수가 int형 1개만 있는 메서드에 바로 값을 넣어서 사용할 수 있다.
             t6.IsBackground = true;
             t6.Start();                                     // 그렇기 때문에 Start()에 어떤 매개변수도 전달하지 않아도 된다.
 
-            Thread t7 = new Thread(() => Mul(5, 6));        // 매개변수가 2개 이상인 메서드도 람다로 전달하면 잘된다.
+            Thread t7 = new Thread(() => Mul(5, 6));        // 매개변수가 2개 이상인 메서드도 람다로 전달하면 된다.
             t7.IsBackground = true;
             t7.Start();
 
@@ -100,7 +100,7 @@ namespace CPPPP
 
         static void Calc()
         {
-            WriteLine("Calc");
+            WriteLine("Calc()");
         }
 
         static void Add(object o)                           // 매개변수를 가진 델리게이트에 저장하기 위해 object형 1개만 가진 메서드를 정의할 수 밖에 없다.
