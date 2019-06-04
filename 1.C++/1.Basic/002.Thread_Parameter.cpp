@@ -1,0 +1,66 @@
+#include <iostream>
+#include <thread>
+
+using namespace std;
+
+void Calc()
+{
+	cout << "Calc()" << endl;
+}
+
+void Add(int a, int b)
+{
+	cout << "Add(int, int) : " << a + b << endl;
+}
+
+void Sub(int a, int b)
+{
+	cout << "Sub(int, int) : " << a - b << endl;
+}
+
+class Adder	// 펑터
+{
+private:
+	int a;
+	int b;
+public:
+	Adder(int _a, int _b) : a(_a), b(_b) {}	// 생성자
+	void operator()() const					// 형변환 연산자
+	{
+		cout << "Adder.operator() : " << a + b << endl;
+	}
+};
+
+int main()
+{
+	thread t1 = thread{ Calc };		// 매개변수가 없는 함수는 스레드를 생성할 때 매겨변수로 함수 이름을 전달하면 된다.
+
+	void (*func)() = Calc;			// 함수포인터 생성
+	thread t2 = thread(func);		// thread 생성자로 함수포인터를 전달해준다.
+									// 기본적으로 스레드 생성자의 매개변수가 함수포인터로 정의가 되어 있음을 알 수 있다.
+
+	thread * t3 = new thread(func);	// 동적으로 스레드를 생성하여 사용할 수 있다.
+
+	thread t4 = thread(Add, 1, 2);	// C#과 달리 매개변수를 2개 이상 전달하여 스레드를 생성할 수 있다.
+
+	thread t5 = thread(Adder(3, 4));	// 펑터로 스레드 생성 가능
+
+	thread t6 = thread([]() { cout << 5 - 6 << endl; });	// 람다로 스레드 생성 가능
+
+	thread t7 = thread([]() { Sub(7, 8); });	// 람다 내부에서 함수 호출로 스레드 생성 가능
+
+	t1.join();
+	t2.join();
+	t3->join();	// t3은 포인터형이므로 사용했으니 접근연산자는 ->
+	t4.join();
+	t5.join();
+	t6.join();
+	t7.join();
+
+	delete(t3);	// t3을 동적으로 생성했으니 메모리 해제도 해줘야 한다.
+}
+
+// 실행 결과가 뒤죽박죽이다.
+// 병렬로 실행되는 스레드들이 순서에 상관없이 결과물을 내기 때문이다.
+// 스레드들이 실행된 순서에 따라 결과물을 내는 것을 기대했을 것이다.
+// C#은 스레드를 실행한 순서를 어느정도 지켜서 결과를 내지만 C++은 아니다.
