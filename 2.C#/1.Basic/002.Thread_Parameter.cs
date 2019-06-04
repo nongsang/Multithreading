@@ -59,25 +59,29 @@ namespace CPPPP
             t4.IsBackground = true;
             t4.Start(new StructThreadParam(3, 4));                      // 매개변수를 2개 이상 사용하고 싶으면 구조체로도 전달할 수 있다.
 
-            Thread t5 = new Thread(() => Calc());           // 사실 람다로 구현하면 매개변수를 생각하지 않고 모든 메서드를 전달할 수 있다.
+            Thread t5 = new Thread(() => { WriteLine("Calc()"); });     // 델리게이트의 축약형인 람다를 생성자에 전달할 수 있다. 
+
+            Thread t5 = new Thread(() => { Calc(); });      // 람다 내부에서 메서드를 호출하게 구현할 수 있다.
             t5.IsBackground = true;
             t5.Start();
 
-            Thread t6 = new Thread(() => CircleArea(3));    // 매개변수가 int형 1개만 있는 메서드에 바로 값을 넣어서 사용할 수 있다.
+            Thread t6 = new Thread(() => CircleArea(3));    // 람다 내부에서 메서드를 호출하게 구현하면 매개변수에 직접 값을 대입해 호출하면 된다.
+                                                            // C#에서는 람다를 정의할 때 중괄호를 삭제할 수 있어서 더 축약해서 사용할 수 있다.
             t6.IsBackground = true;
             t6.Start();                                     // 그렇기 때문에 Start()에 어떤 매개변수도 전달하지 않아도 된다.
 
-            Thread t7 = new Thread(() => Mul(5, 6));        // 매개변수가 2개 이상인 메서드도 람다로 전달하면 된다.
+            Thread t7 = new Thread(_ => Mul(5, 6));         // 매개변수가 2개 이상인 메서드도 람다로 전달하면 된다.
+                                                            // 람다 내부에서 사용할 외부 변수가 없으면 소괄호 대신 _로 매개변수를 사용하지 않는 람다임을 표시할 수 있다.
             t7.IsBackground = true;
             t7.Start();
 
-            Thread t8 = new Thread(() => Add(new ClassThreadParam(7, 8)));  // 클래스를 전달해도 되지만 람다로 구현 안하는게 더 좋다.
+            Thread t8 = new Thread(_ => Add(new ClassThreadParam(7, 8)));  // 클래스를 전달해도 되지만 람다로 구현 안하는게 더 좋다.
                                                                             // 클래스를 매개변수로 받아서 처리할 메서드를 따로 구현하기도 귀찮고,
                                                                             // 이미 object형을 받는 델리게이트가 정의가 되어 있기 때문이다.
             t8.IsBackground = true;
             t8.Start();
 
-            Thread t9 = new Thread(() => Sub(new StructThreadParam(9, 10)));    // 클래스와 마찬가지로 구조체로 전달해도 되지만 람다로 구현하지 않는게 더 좋다.
+            Thread t9 = new Thread(_ => Sub(new StructThreadParam(9, 10)));    // 클래스와 마찬가지로 구조체로 전달해도 되지만 람다로 구현하지 않는게 더 좋다.
                                                                                 // 구조체를 매개변수로 받아서 처리할 메서드를 따로 구현하기도 귀찮고,
                                                                                 // 구조체를 사용하는 이유는 값형식을 한번에 처리한다는게 장점이기 때문에,
                                                                                 // 4개 이상의 매개변수를 다루는거 아니면 따로 구조체로 만들어서 전달하는 것보다 하나하나 다루는 것이 편하기 때문
