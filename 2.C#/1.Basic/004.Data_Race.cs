@@ -10,7 +10,7 @@ namespace CPPPP
 {
     class Data_Race
     {
-        static int sum = 0;     // 전역 필드, 공유메모리 개념으로 생성했다.
+        static int sum = 0;     // 전역 필드, 공유메모리 모델
                                 // 모든 스레드가 접근할 수 있고, 값도 변경할 수 있다.
 
         public static void Main()
