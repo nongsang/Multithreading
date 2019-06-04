@@ -43,7 +43,7 @@ namespace CPPPP
                           // 조인을 사용하도록 설계한다면 while문 밖에서 스레드를 생성해야 한다.
         }
 
-        static int Fib(int n)       // 피보나치 수열, 입력값이 커지면 기하급수적으로 성능이 하락한다.
+        static int Fib(int n)   // 피보나치 수열, 입력값이 커지면 기하급수적으로 성능이 하락한다.
         {
             if (0 == n) return 0;
             else if (1 == n) return 1;
