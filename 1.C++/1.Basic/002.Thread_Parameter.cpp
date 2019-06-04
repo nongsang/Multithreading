@@ -33,21 +33,24 @@ public:
 
 int main()
 {
-	thread t1 = thread{ Calc };		// 매개변수가 없는 함수는 스레드를 생성할 때 매겨변수로 함수 이름을 전달하면 된다.
+	thread t1 = thread{ Calc };	// 매개변수가 없는 함수는 스레드를 생성할 때 매겨변수로 함수 이름을 전달하면 된다.
 
-	void (*func)() = Calc;			// 함수포인터 생성
-	thread t2 = thread(func);		// thread 생성자로 함수포인터를 전달해준다.
-									// 기본적으로 스레드 생성자의 매개변수가 함수포인터로 정의가 되어 있음을 알 수 있다.
+	void (*func)() = Calc;		// 함수포인터 생성
+	thread t2 = thread{ func };	// thread 생성자로 함수포인터를 전달해준다.
+								// 기본적으로 스레드 생성자의 매개변수가 함수포인터로 정의가 되어 있음을 알 수 있다.
 
-	thread * t3 = new thread(func);	// 동적으로 스레드를 생성하여 사용할 수 있다.
+	thread * t3 = new thread{ func };	// 동적으로 스레드를 생성하여 사용할 수 있다.
 
-	thread t4 = thread(Add, 1, 2);	// C#과 달리 매개변수를 2개 이상 전달하여 스레드를 생성할 수 있다.
+	thread t4 = thread{ Add, 1, 2 };	// C#과 달리 매개변수를 2개 이상 전달하여 스레드를 생성할 수 있다.
 
-	thread t5 = thread(Adder(3, 4));	// 펑터로 스레드 생성 가능
+	thread t5 = thread{ Adder(3, 4) };	// 펑터로 스레드 생성 가능
 
-	thread t6 = thread([]() { cout << 5 - 6 << endl; });	// 람다로 스레드 생성 가능
+	thread t6 = thread{ []() { cout << 5 - 6 << endl; } };	// 람다로 스레드 생성 가능
 
-	thread t7 = thread([]() { Sub(7, 8); });	// 람다 내부에서 함수 호출로 스레드 생성 가능
+	thread t7 = thread{ []() { Sub(7, 8); } };	// 람다 내부에서 함수 호출로 스레드 생성 가능
+
+	thread t8 = thread{ [] { Add(9, 10); } };	// 람다를 함수포인터에 연결하지 않고 바로 사용하기 때문에 매개변수가 없어도 되지 때문에
+												// 소괄호를 생략해서 람다를 호출할 수 있다.
 
 	t1.join();
 	t2.join();
@@ -56,6 +59,7 @@ int main()
 	t5.join();
 	t6.join();
 	t7.join();
+	t8.join();
 
 	delete(t3);	// t3을 동적으로 생성했으니 메모리 해제도 해줘야 한다.
 }
