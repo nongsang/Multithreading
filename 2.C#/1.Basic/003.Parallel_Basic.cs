@@ -28,7 +28,7 @@ namespace CPPPP
                 //WriteLine("{0}", Fib(int.Parse(input)));    // 기본적으로 메서드는 동기방식으로 동작한다.
                                                               // 오래 걸리면 x를 입력해서 탈출해야 하지만 메서드가 실행되는 동안 다른 작업이 불가능하다.
                                                               // 동기방식의 한계
-                Thread t = new Thread(() => WriteLine(Fib(int.Parse(input))));  // 서브 스레드를 생성하여 연산을 맡긴다.
+                Thread t = new Thread(_ => WriteLine(Fib(int.Parse(input))));   // 서브 스레드를 생성하여 연산을 맡긴다.
                                                                                 // 메인 스레드는 서브 스레드를 생성하고 x입력만 들어오기만을 기다린다.
                                                                                 // while문 안에 스레드 생성이 있다고 계속 생성하는 것이 아니다.
                                                                                 // 여전히 동기방식이지만 스레드를 생성해서 전담하는 방식으로 동기방식의 문제를 해결했다.
