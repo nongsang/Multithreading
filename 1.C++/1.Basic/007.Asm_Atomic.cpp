@@ -2,7 +2,6 @@
 #include <thread>
 #include <chrono>
 #include <vector>
-#include <atomic>
 
 using namespace std;
 using namespace std::chrono;
