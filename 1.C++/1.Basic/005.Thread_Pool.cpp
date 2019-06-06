@@ -38,7 +38,7 @@ int main()
 
 		cout << "threads : " << i << " / sum : " << sum << " / ";
 
-		cout << "time : " << static_cast<double>(duration_cast<microseconds>(du).count()) / 1000000 << " μs\n";	// 시간 출력
+		cout << "time : " << static_cast<double>(duration_cast<microseconds>(du).count()) / 1000000 << " s\n";	// 시간 출력
 	}
 }
 
