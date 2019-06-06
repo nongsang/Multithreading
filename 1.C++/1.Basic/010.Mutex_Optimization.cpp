@@ -50,6 +50,6 @@ int main()
 
 		cout << "threads : " << i << " / sum : " << sum << " / ";
 
-		cout << "time : " << static_cast<double>(duration_cast<microseconds>(du).count()) / 1000000 << " ¥ìs\n";
+		cout << "time : " << static_cast<double>(duration_cast<microseconds>(du).count()) / 1000000 << " s\n";
 	}
 }
