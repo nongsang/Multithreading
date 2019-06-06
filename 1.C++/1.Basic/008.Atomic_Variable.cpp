@@ -37,9 +37,9 @@ int main()
 
 		auto du = high_resolution_clock::now() - start;
 
-		cout << "½º·¹µå °¹¼ö : " << i << " / sum : " << sum << " / ";
+		cout << "threads : " << i << " / sum : " << sum << " / ";
 
-		cout << static_cast<double>(duration_cast<microseconds>(du).count()) / 1000000 << " ¥ìs\n";
+		cout << "time : " << static_cast<double>(duration_cast<microseconds>(du).count()) / 1000000 << " ¥ìs\n";
 	}
 }
 
