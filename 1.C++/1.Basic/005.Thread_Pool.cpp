@@ -36,9 +36,9 @@ int main()
 
 		auto du = high_resolution_clock::now() - start;	// 시간 측정 끝
 
-		cout << "스레드 갯수 : " << i << " / sum : " << sum << " / ";	// 결과 출력
+		cout << "threads : " << i << " / sum : " << sum << " / ";
 
-		cout << static_cast<double>(duration_cast<microseconds>(du).count()) / 1000000 << " μs\n";	// 시간 출력
+		cout << "time : " << static_cast<double>(duration_cast<microseconds>(du).count()) / 1000000 << " μs\n";	// 시간 출력
 	}
 }
 
