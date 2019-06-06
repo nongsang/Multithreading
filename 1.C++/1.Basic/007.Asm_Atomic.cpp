@@ -27,7 +27,7 @@ int main()
 
 		auto start = high_resolution_clock::now();
 
-		for( auto j = 1; j <= i; ++j )
+		for( auto j = 0; j < i; ++j )
 			worker_threads.emplace_back(new thread{ Thread_Func, i });
 
 		for( auto t : worker_threads )
