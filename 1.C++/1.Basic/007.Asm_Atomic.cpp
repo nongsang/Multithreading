@@ -28,7 +28,7 @@ int main()
 		auto start = high_resolution_clock::now();
 
 		for( auto j = 1; j <= i; ++j )
-			worker_threads.push_back(new thread{ Thread_Func, i });
+			worker_threads.emplace_back(new thread{ Thread_Func, i });
 
 		for( auto t : worker_threads )
 			t->join();
