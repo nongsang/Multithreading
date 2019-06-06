@@ -30,7 +30,7 @@ void Thread_Func3()
 {
 	for( auto i = 0; i < 10; ++i )
 	{
-		sum1.fetch_add(sum2);		// <atomic> + <atomic>
+		sum1.fetch_add(sum2);	// <atomic> + <atomic>
 	}
 }
 
