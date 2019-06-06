@@ -29,7 +29,7 @@ int main()
 		auto start = high_resolution_clock::now();	// 시간 측정 시작
 
 		for( auto j = 1; j <= i; ++j )								// 스레드 갯수만큼
-			worker_threads.push_back(new thread{ Thread_Func, i });	// 스레드를 생성하여 스레드풀에 저장
+			worker_threads.emplace_back(new thread{ Thread_Func, i });	// 스레드를 생성하여 스레드풀에 저장
 
 		for( auto t : worker_threads )	// 스레드풀에 있는 모든 스레드
 			t->join();					// 대기
