@@ -28,7 +28,7 @@ int main()
 
 		auto start = high_resolution_clock::now();	// 시간 측정 시작
 
-		for( auto j = 0; j < i; ++j )								// 스레드 갯수만큼
+		for( auto j = 0; j < i; ++j )									// 스레드 갯수만큼
 			worker_threads.emplace_back(new thread{ Thread_Func, i });	// 스레드를 생성하여 스레드풀에 저장
 
 		for( auto t : worker_threads )	// 스레드풀에 있는 모든 스레드
@@ -38,7 +38,7 @@ int main()
 
 		cout << "threads : " << i << " / sum : " << sum << " / ";
 
-		cout << "time : " << static_cast<double>(duration_cast<microseconds>(du).count()) / 1000000 << " s\n";	// 시간 출력
+		cout << "time : " << static_cast<double>(duration_cast<microseconds>(du).count()) / 1000000 << " s" << endl;	// 시간 출력
 	}
 }
 
