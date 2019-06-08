@@ -12,25 +12,25 @@ atomic<int> sum2;
 
 void Thread_Func1()
 {
-	for( auto i = 0; i < 10; ++i )
+	for( auto i = 0; i < 500000; ++i )
 	{
-		sum1.fetch_add(1);
+		sum1.fetch_add(2);
 	}
 }
 
 void Thread_Func2()
 {
-	for( auto i = 0; i < 10; ++i )
+	for( auto i = 0; i < 500000; ++i )
 	{
-		sum2.fetch_add(1);
+		sum2.fetch_add(2);
 	}
 }
 
 void Thread_Func3()
 {
-	for( auto i = 0; i < 10; ++i )
+	for( auto i = 0; i < 50; ++i )
 	{
-		sum1.fetch_add(sum2);	// <atomic> + <atomic>
+		sum1.fetch_add(sum2);		// <atomic> + <atomic>
 	}
 }
 
